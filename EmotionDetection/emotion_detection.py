@@ -14,8 +14,22 @@ def emotion_detector(text_to_analyse):
     # Sending a POST request to the sentiment analysis API
     response = requests.post(url, json=myobj, headers=header)
 
+    status_code = response.status_code
+
+
     # Parsing the JSON response from the API
     formatted_response = json.loads(response.text)
+
+    if (status_code == 400):
+        fallback = {
+            "anger": None, 
+            "disgust": None, 
+            "fear": None, 
+            "joy": None, 
+            "sadness": None, 
+            "dominant_emotion": None
+        }
+        return fallback
 
     emotions = formatted_response['emotionPredictions'][0]['emotion']
 

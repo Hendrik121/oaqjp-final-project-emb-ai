@@ -1,3 +1,8 @@
+'''
+This modul create a app instanze of flask and starts it if run as __main__.
+
+The app has two routes index and emotionDetector
+'''
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
@@ -16,6 +21,9 @@ def emotion():
     # Pass the text to the sentiment_analyzer function and store the response
     result = emotion_detector(text_to_analyze)
 
+    if not result['dominant_emotion']:
+        return 'Invalid text! Please try again!.'
+
     response = f"""
                 For the given statement, the system response is:
                 'anger': {result['anger']},
@@ -30,4 +38,4 @@ def emotion():
 
 # Run the Flask app
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5001)
