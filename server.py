@@ -11,10 +11,16 @@ app = Flask(__name__)
 
 @app.route("/")
 def render_index_page():
+    '''
+    Index route with the GUI
+    '''
     return render_template('index.html')
 
 @app.route("/emotionDetector")
 def emotion():
+    '''
+    emotionDetector route that analyzises the given text
+    '''
     # Retrieve the text to analyze from the request arguments
     text_to_analyze = request.args.get('textToAnalyze')
 
